@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Layout, Card, } from 'antd'
 import './login.css'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from '../../redux/hooks';
+import { loginAdmin } from '../../redux/reducers/authSlice';
+import { RootState } from '../../redux/store';
+import { isExpired } from 'react-jwt';
 
 const Login: React.FC = () => {
   const [cred, setCred] = useState({ email: '', password: '' });
+  const { token } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const handleLogin = () => {
     console.log(cred, 'cred');
-    navigate('/dash-board')
+    dispatch(loginAdmin(cred))
+    // navigate('/dash-board')
   }
+
+  useEffect(() => {
+    if (token.length > 0) {
+      if (!isExpired(token)) {
+        navigate('/dash-board')
+      }
+    }
+  }, [token])
   return (
     <Layout className='main-layout lg:flex-row'>
       <div className='sub-container flex justify-center items-center bg-[#68f76847]'>
