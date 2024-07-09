@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import {
     DesktopOutlined,
@@ -11,23 +10,8 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
-
-// const items: MenuItem[] = [
-//     getItem('Option 1', '1', <PieChartOutlined />),
-//     getItem('Option 2', '2', <DesktopOutlined />),
-//     getItem('User', 'sub1', <UserOutlined />, [
-//         getItem('Tom', '3'),
-//         getItem('Bill', '4'),
-//         getItem('Alex', '5'),
-//     ]),
-//     getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-//     getItem('Files', '9', <FileOutlined />),
-// ];
 const DashBoard = () => {
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content, Sider } = Layout;
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -36,7 +20,10 @@ const DashBoard = () => {
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsible theme='light' collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div className="demo-logo-vertical" >Logo</div>
+                <div className='flex justify-center my-4 cursor-pointer' onClick={() => navigate('/dash-board')}>
+                    <img className="demo-logo-vertical" src='vite.svg' />
+                </div>
+
                 <Menu theme='light' defaultSelectedKeys={['dashboard']} mode="inline" items={[
                     {
                         key: 'dashboard', label: 'Dash Board', icon: <PieChartOutlined />, onClick: () => { navigate('/dash-board') }
@@ -44,7 +31,7 @@ const DashBoard = () => {
                 ]} />
             </Sider>
             <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }} />
+                <Header style={{ padding: 0, background: colorBgContainer }} ></Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
